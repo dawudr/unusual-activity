@@ -1,0 +1,15 @@
+.editable-field {
+  /*text-decoration: underline;*/
+  color: purple;
+}
+
+.ui-datatable {
+  width: 100%;
+  table-layout: auto;
+}
+
+.ui-datatable table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: initial;
+}
