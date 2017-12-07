@@ -1,73 +1,88 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule} from '@angular/forms';
-import { HttpModule} from '@angular/http';
-import { NvD3Component } from 'ng2-nvd3';
-import { NvD3Module } from 'ng2-nvd3';
-import { AngularFontAwesomeModule } from 'angular-font-awesome/angular-font-awesome';
-
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../environments/environment.prod';
+import { NgModule } from '@angular/core';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule} from './app-routing.module';
-import { VolumeChartComponent } from './volume-chart/volume-chart.component';
-import { VolumeTableComponent } from './volume-table/volume-table.component';
-import { PriceTableComponent } from './price-table/price-table.component';
-import { PriceChartComponent } from './price-chart/price-chart.component';
 
-import { StockListComponent } from './stock/stock-list/stock-list.component';
-import { StockItemComponent } from './stock/stock-item/stock-item.component';
-import { SuggestStocksComponent } from './stock/suggest-stocks/suggest-stocks.component';
-import { StockStartComponent } from './stock/stock-start/stock-start.component';
-import { StockDataService } from './stock/stock-data.service';
-import { StockInfoService } from './stock/stock-info.service';
-import { MessageService } from './shared/message.service';
-import { DropdownDirective } from 'app/shared/dropdown.directive';
+// Import containers
+import {
+  FullLayoutComponent,
+  SimpleLayoutComponent
+} from './containers';
 
-import { InputTextModule, DataTableModule, ButtonModule, DialogModule, MultiSelectModule, GrowlModule, InputSwitchModule } from 'primeng/primeng';
-import { NgPipesModule } from 'ngx-pipes';
-import { SubscriptionsService } from './shared/subscriptions.service';
+const APP_CONTAINERS = [
+  FullLayoutComponent,
+  SimpleLayoutComponent
+]
+
+// Import components
+import {
+  AppAsideComponent,
+  AppBreadcrumbsComponent,
+  AppFooterComponent,
+  AppHeaderComponent,
+  AppSidebarComponent,
+  AppSidebarFooterComponent,
+  AppSidebarFormComponent,
+  AppSidebarHeaderComponent,
+  AppSidebarMinimizerComponent,
+  APP_SIDEBAR_NAV
+} from './components';
+
+const APP_COMPONENTS = [
+  AppAsideComponent,
+  AppBreadcrumbsComponent,
+  AppFooterComponent,
+  AppHeaderComponent,
+  AppSidebarComponent,
+  AppSidebarFooterComponent,
+  AppSidebarFormComponent,
+  AppSidebarHeaderComponent,
+  AppSidebarMinimizerComponent,
+  APP_SIDEBAR_NAV
+]
+
+// Import directives
+import {
+  AsideToggleDirective,
+  NAV_DROPDOWN_DIRECTIVES,
+  ReplaceDirective,
+  SIDEBAR_TOGGLE_DIRECTIVES
+} from './directives';
+
+const APP_DIRECTIVES = [
+  AsideToggleDirective,
+  NAV_DROPDOWN_DIRECTIVES,
+  ReplaceDirective,
+  SIDEBAR_TOGGLE_DIRECTIVES
+]
+
+// Import routing module
+import { AppRoutingModule } from './app.routing';
+
+// Import 3rd party components
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DropdownDirective,
-
-    VolumeChartComponent,
-    VolumeTableComponent,
-    PriceTableComponent,
-    PriceChartComponent,
-    StockListComponent,
-    StockItemComponent,
-    SuggestStocksComponent,
-    StockStartComponent,
-  ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HttpModule,
-    AngularFontAwesomeModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
-    AngularFireDatabaseModule, // imports firebase/database, for database features
-    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-    NvD3Module,
-
-    NgPipesModule,
-
-    InputTextModule,
-    DataTableModule,
-    ButtonModule,
-    DialogModule,
-    MultiSelectModule,
-    GrowlModule,
-    InputSwitchModule,
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    ChartsModule
   ],
-  providers: [StockInfoService, StockDataService, MessageService, SubscriptionsService],
-  bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    ...APP_CONTAINERS,
+    ...APP_COMPONENTS,
+    ...APP_DIRECTIVES
+  ],
+  providers: [{
+    provide: LocationStrategy,
+    useClass: HashLocationStrategy
+  }],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }
