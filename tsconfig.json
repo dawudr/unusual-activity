@@ -1,8 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "allowJs": true,
-    "checkJs": true,
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",
     "sourceMap": true,
@@ -18,8 +16,5 @@
       "es2016",
       "dom"
     ]
-  },
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }
